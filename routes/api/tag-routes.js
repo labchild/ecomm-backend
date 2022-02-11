@@ -50,6 +50,18 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
+  Tag.create({ tag_name: req.body.tag_name })
+    .then(tag => {
+      if (!tag) {
+        res.status(400).json({ message: 'Request formatted incorrectly' });
+        return;
+      }
+      res.json(tag);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+    });
 });
 
 router.put('/:id', (req, res) => {
