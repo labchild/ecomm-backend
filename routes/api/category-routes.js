@@ -5,16 +5,39 @@ const { Category, Product } = require('../../models');
 
 router.get('/', (req, res) => {
   // find all categories and associated products
-  Category.findAll()
-    .then(dbCategoryData => {
-      res.json({dbCategoryData, message: 'success!'});
-    })
-  
+  Category.findAll({
+    include: [
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock']
+      }
+    ]
+  })
+    .then(dbCategoryData => res.json(dbCategoryData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+    });
 });
 
 router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+  // find one category by its `id` value and associated Products
+  Category.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: [
+      {
+        model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock']
+      }
+    ]
+  })
+    .then(dbCategoryData => res.json(dbCategoryData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+    });
 });
 
 router.post('/', (req, res) => {
