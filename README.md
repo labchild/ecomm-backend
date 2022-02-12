@@ -1,5 +1,6 @@
 # E-commerce Back End
 ![license](https://img.shields.io/github/license/labchild/ecomm-backend) ![issues](https://img.shields.io/github/issues/labchild/ecomm-backend)
+
 Back end access for ecommerce retail business with SQL database.
 
 ### Table of Contents
