@@ -9,13 +9,17 @@ Back end access for ecommerce retail business with SQL database.
   * [Prerequisites](#prerequisites)
   * [Getting Started](#getting-started)
 * [Usage](#usage)
+  * [GET](#get-routes)
+  * [POST](#post-routes)
+  * [PUT](#put-routes)
+  * [DELETE](#delete-routes)
 * [Contributions](#contributions)
 * [License](#license)
 * [Questions & Contact](#questions-and-contact)
 * [Acknowledgements &#x2763;](#acknowledgements)
 
 ## Description
-E-commerce Back End is the back end for an e-commerce site. It uses an Express.js API and Sequelize to interact with a MySQL database. It offers create, read, update, and delete functionality.
+E-commerce Back End provides access to the back end for an e-commerce site. It uses an Express.js server, RESTful APIs, and Sequelize to interact with a MySQL database. It offers create, read, update, and delete functionality.
 
 ## Installation
 ### Prequisites
@@ -42,23 +46,32 @@ source db/schema.sql
 Close the mysql shell. Ecommerce Backend is now installed and your database is ready to use. If you'd like to use the example records included with this project, run the command  ```npm run seed```.
 
 ## Usage
-Watch this [walkthrough video]() for a detailed view of each route and request body.
+Watch this [walkthrough video](https://drive.google.com/file/d/1r3WPJoLPORg7pBDonU8xLQYxkwxwuZSt/view?usp=sharing) for a detailed view of each route and request body.
 
 To launch the app, navigate to the root folder of the project from your CLI. Run the command ```npm start``` or ```node server.js```.
 
-Next, launch your API testing platform (like Insomnia) and enter the HTTP address where your server is running, most likely http://localhost:3001, with the route you'd like to use (for example /api/categories). Get and delete routes do not require a request body. Put and post routes (update and create, respectively), require a JSON request body.
+Next, launch your API testing client (like Insomnia) and enter the HTTP address where your server is running, most likely http://localhost:3001 (the port will be logged to the console once the server starts), with the route you'd like to use (for example /api/categories). Get and delete routes do not require a request body. Put and post routes (update and create, respectively), require a JSON request body.
 
 Here are some examples of the API in action:
-<strong>GET routes</strong>
+
+#### GET Routes
+There are two Read options available: GET all and GET one by id. To get a single record, simply add the record id to the end of the HTTP address.
+
 ![get preview](./src/images/get-preview.png)
 
-<strong>POST routes</strong>
+#### POST Routes
+New categories require ```category_name``` in the request body. Tags take ```tag_name``` as the request body. Products require more information; include ```prduct_name```, ```price```, and ```stock```. If stock is left blank, it will default to 10. You may optionally include ```category_id``` and ```tagIds``` (as an array), but they are not required for product creation.
+
 ![post preview](./src/images/post-preview.png)
 
-<strong>PUT routes</strong>
+#### PUT Routes
+You cannot change a record's id. You can make changes to any other field. Products do not require that your enter every property into the JSON request, only the propeties that you wish to alter. Remember to include the record's id at the end of the HTTP address.
+
 ![put preview](./src/images/put-preview.png)
 
-<strong>DELETE routes</strong>
+#### DELETE Routes
+To delete a record, include the record's id at the end of the HTTP address.
+
 ![delete preview](./src/images/delete-preview.png)
 
 ## Contributions
