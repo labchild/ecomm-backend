@@ -45,11 +45,13 @@ router.get('/:id', (req, res) => {
   })
     .then(product => {
       if (!product) {
+        // if no changes were made, tell user they messed up req
         res.status(400).json({
           message: `No product with id ${req.params.id}`
         });
         return;
       }
+      // return product
       res.json(product);
     })
     .catch(err => {
@@ -157,12 +159,14 @@ router.delete('/:id', (req, res) => {
     }
   })
   .then(result => {
+    // if no changes were made, tell user they messed up req
     if (!result) {
       res.status(400).json({ 
         message: `No product with id ${req.params.id}`
       });
       return;
     }
+    // tell user delete was success
     res.json({
       message: `Product with id ${req.params.id} deleted`,
       changes: result

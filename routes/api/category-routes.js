@@ -34,16 +34,18 @@ router.get('/:id', (req, res) => {
     ]
   })
     .then(category => {
+      // if no changes were made, tell user they messed up req
       if (!category) {
         res.status(400).json({
           message: `No category with id ${req.params.id}`
         });
         return;
       }
+      // return category
       res.json(category);
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
       res.status(500).json({ message: err.message });
     });
 });
@@ -58,8 +60,8 @@ router.post('/', (req, res) => {
       });
     })
     .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: err.message });
+      // console.log(err);
+      res.status(400).json({ message: err.message });
     });
 });
 
@@ -74,13 +76,14 @@ router.put('/:id', (req, res) => {
       }
     })
     .then(result => {
-      console.log(result[0]);
+      // if no changes were made, tell user they messed up req
       if (!result[0]) {
         res.status(400).json({
           message: `No category with id ${req.params.id}`
         });
         return;
       }
+      // tell user changes are success
       res.json({
         message: `Category with id ${req.params.id} updated`,
         changes: result
@@ -101,11 +104,13 @@ router.delete('/:id', (req, res) => {
   })
   .then(result => {
     if (!result) {
+      // if no changes were made, tell user they messed up req
       res.status(400).json({ 
         message: `No category with id ${req.params.id}`
       });
       return;
     }
+    // tell user changes are success
     res.json({
       message: `Category with id ${req.params.id} deleted`,
       changes: result

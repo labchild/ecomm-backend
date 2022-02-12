@@ -75,7 +75,7 @@ router.put('/:id', (req, res) => {
       }
     })
     .then(result => {
-      if (!result) {
+      if (!result[0]) {
         res.status(400).json({
           message: `No tag with id ${req.params.id}`
         });

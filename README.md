@@ -19,7 +19,14 @@ E-commerce Back End is the back end for an e-commerce site. It uses an Express.j
 
 ## Installation
 ### Prequisites
-This application requires that you have Node.js, MySQL server, and the MySQL shell.
+This application requires that you have Node.js, MySQL server, and the MySQL shell. The server and database connection also require _environment variables_, so create ```.env``` file in the root folder of the project, then add the following information:
+```
+DB_NAME='ecommerce_db'
+DB_USER='<your_user>'
+DB_PW='<your_password>'
+```
+
+Now the server can connect to your database automatically on launch.
 
 ### Getting Started
 Navigate to the root folder of the application from you CLI. Install the dependencies with the command ```npm i```. Once the project is intalled, connect to your database:
