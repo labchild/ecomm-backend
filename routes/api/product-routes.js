@@ -65,8 +65,8 @@ router.post('/', (req, res) => {
       product_name: "Basketball",
       price: 200.00,
       stock: 3,
-      tagIds: [1, 2, 3, 4]
       *optionally to include*
+      tagIds: [1, 2, 3, 4],
       category_id: 
     }
   */
@@ -83,7 +83,7 @@ router.post('/', (req, res) => {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
-            tag_id,
+            tag_id
           };
         });
         return ProductTag.bulkCreate(productTagIdArr);
@@ -150,6 +150,27 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(result => {
+    if (!result) {
+      res.status(400).json({ 
+        message: `No product with id ${req.params.id}`
+      });
+      return;
+    }
+    res.json({
+      message: `Product with id ${req.params.id} deleted`,
+      changes: result
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).json({ message: err.message });
+  });
 });
 
 module.exports = router;
