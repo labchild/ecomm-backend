@@ -137,6 +137,7 @@ router.put('/:id', (req, res) => {
 
     })
     .then((updatedProductTags) => {
+      // inform user update was successful
       res.json({
         message: `Product with id ${req.params.id} was updated`,
         new_tags: updatedProductTags

@@ -69,31 +69,50 @@ router.put('/:id', (req, res) => {
   Tag.update({
     tag_name: req.body.tag_name
   },
-  {
-    where: {
-      id: req.params.id
-    }
-  })
-  .then(result => {
-    if (!result) {
-      res.status(400).json({ 
-        message: `No tag with id ${req.params.id}`
+    {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(result => {
+      if (!result) {
+        res.status(400).json({
+          message: `No tag with id ${req.params.id}`
+        });
+        return;
+      }
+      res.json({
+        message: `Tag with id ${req.params.id} updated`,
+        changes: result
       });
-      return;
-    }
-    res.json({
-      message: `Tag with id ${req.params.id} updated`,
-      changes: result
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: err.message });
     });
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({ message: err.message });
-  });
 });
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  Tag.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(result => {
+      if (!result) {
+        res.json({ message: `No tag with id ${req.params.id}` });
+        return;
+      }
+      res.json({
+        message: `Tag with id ${req.params.id} deleted`,
+        changes: result
+      })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: err.message });
+    });
 });
 
 module.exports = router;
